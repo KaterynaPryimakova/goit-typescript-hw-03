@@ -15,14 +15,20 @@ class Person {
 }
 
 abstract class House {
-    constructor(key: Key) {}
+    key: Key;
     door: true | false;
+    tenants: Array<Person> = [];
+
+    constructor(key: Key) {
+        this.key = key;
+    }
 
     comeIn(person: Person) {
-        const tenants: Array<Person> = [];
         if (this.door) {
-            tenants.push(person);
-            console.log(`${tenants.length} person is in the House`);
+            this.tenants.push(person);
+            console.log(this.tenants);
+
+            console.log(`${this.tenants.length} person is in the House`);
         }
     }
 
@@ -31,20 +37,25 @@ abstract class House {
 
 class MyHouse extends House {
     openDoor(key: Key): void {
-        if (key) {
+        if (key === this.key) {
             this.door = true;
             console.log("We have a key. The door is opening");
+        } else {
+            console.log("Door is closed. Try another key");
         }
     }
 }
 const key = new Key();
 
 const person = new Person(key);
+const person2 = new Person(key);
 
 const house = new MyHouse(key);
 
 house.openDoor(person.getKey());
+house.openDoor(person2.getKey());
 
 house.comeIn(person);
+house.comeIn(person2);
 
 export {};
