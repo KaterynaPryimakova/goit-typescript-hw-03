@@ -37,7 +37,7 @@ abstract class House {
 
 class MyHouse extends House {
     openDoor(key: Key): void {
-        if (key === this.key) {
+        if (Object.is(key, this.key)) {
             this.door = true;
             console.log("We have a key. The door is opening");
         } else {
