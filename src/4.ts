@@ -37,11 +37,9 @@ abstract class House {
 
 class MyHouse extends House {
     openDoor(key: Key): void {
-        if (Object.is(key, this.key)) {
+        if (key.getSignature() === this.key.getSignature()) {
             this.door = true;
             console.log("We have a key. The door is opening");
-        } else {
-            console.log("Door is closed. Try another key");
         }
     }
 }
